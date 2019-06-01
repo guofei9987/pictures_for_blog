@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="qrcode.js"></script>
+
+</head>
+<body>
+
+<input type="text" id="text" value="信息">
+<input type="button" value="生成" onclick="generator_qr_code()">
+<div id="qr"></div>
+
+<script>
+    function generator_qr_code() {
+      // 画一个 svg 图
+        var qrcode = new QRCode({content: document.getElementById('text').value, join: true});
+        document.getElementById("qr").innerHTML = qrcode.svg();
+
+    // 字符图
+
+    var hello = new QRCode("Hello World!");
+    var modules = hello.qrcode.modules;
+
+    var ascii = '';
+    var length = modules.length;
+    for (var y = 0; y < length; y++) {
+      for (var x = 0; x < length; x++) {
+        var module = modules[x][y];
+        ascii += (module ? '██' : '  ');
+      }
+      ascii += '\r\n';
+    }
+    console.log(ascii); 
+    }
+
+</script>
+
+
+</body>
+</html>
