@@ -11,7 +11,7 @@
             font-family: Sans-Serif;
         }
 
-        h2 {
+        h2,h3 {
             margin: 0.5em 0 0.1em;
             text-align: center;
         }
@@ -47,9 +47,6 @@
             padding: 1em;
         }
 
-        #diffoutput {
-            width: 100%;
-        }
     </style>
 
     <script type="text/javascript">
@@ -163,7 +160,9 @@
 <body>
 <h1 class="top">文本隐水印</h1>
 
+<hr>
 
+<h2 class="top">1. 把隐水印嵌入到明文</h2>
 <table width="100%">
     <tr>
         <td width="48%">
@@ -171,7 +170,7 @@
                 <strong>需要隐藏的密文：</strong>
                 <input id="wm" type="text" name="" value="">
 
-                <h2>作为掩护的明文</h2>
+                <h3>作为掩护的明文</h3>
                 <textarea id="baseText"></textarea>
             </div>
         </td>
@@ -182,16 +181,23 @@
 
         <td width="48%">
             <div class="textOutput">
-                <h2>嵌入密文后的明文</h2>
+                <h3>嵌入密文后的明文</h3>
                 <textarea id="newText" readonly="readonly"></textarea>
             </div>
         </td>
 
     </tr>
+</table>
 
+
+
+<hr>
+<h2 class="top">2. 把隐水印嵌入到明文</h2>
+
+<table>
     <tr>
         <td>
-            <h2>含有密文的明文</h2>
+            <h3>嵌入密文后的明文</h3>
             <textarea id="text_embed2"></textarea>
         </td>
 
@@ -200,15 +206,15 @@
         </td>
 
         <td>
-            <h2>解出的密文</h2>
+            <h3>解出的密文</h3>
             <textarea id="wm_extract" readonly="readonly"></textarea>
         </td>
 
     </tr>
 
 </table>
-<div id="diffoutput"></div>
 
+<hr>
 
 说明：<br>
 <ol>
