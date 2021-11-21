@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <title>文本去重工具</title>
     <link rel="stylesheet" type="text/css" href="diffview.css"/>
-    <script type="text/javascript" src="diffview.js"></script>
-    <script type="text/javascript" src="difflib.js"></script>
     <style type="text/css">
         body {
             font-size: 12px;
@@ -56,13 +54,13 @@
 
     <script type="text/javascript">
 
-function main(){
-  wm = document.getElementById("wm").value;
+        function main() {
+            wm = document.getElementById("wm").value;
+            text = document.getElementById("baseText").value;
 
-  dropDup();
-  diffUsingJS(1);
-}
-
+            text_embed = wm + text;
+            document.getElementById("newText").innerHTML = text_embed;
+        }
 
 
     </script>
@@ -73,44 +71,41 @@ function main(){
 <h1 class="top">Text Distinct</h1>
 
 
-
-
 <table width="100%">
-  <tr>
-    <td width="48%">
-<div class="textInput" >
-  <strong>需要埋入的密文：</strong>
-  <input id="bw" type="text" name="" value="">
+    <tr>
+        <td width="48%">
+            <div class="textInput">
+                <strong>需要埋入的密文：</strong>
+                <input id="wm" type="text" name="" value="">
 
-    <h2>明文</h2>
-    <textarea id="baseText"></textarea>
-</div>
-</td>
+                <h2>明文</h2>
+                <textarea id="baseText"></textarea>
+            </div>
+        </td>
 
-<td width="4%" align="middle">
-  <button type="button" onclick="main();">embed=&gt;</button>
-</td>
+        <td width="4%" align="middle">
+            <button type="button" onclick="main();">embed=&gt;</button>
+        </td>
 
-<td  width="48%">
-<div class="textOutput">
-    <h2>嵌入后的文字</h2>
-    <textarea id="newText" readonly="readonly"></textarea>
-</div>
-</td>
+        <td width="48%">
+            <div class="textOutput">
+                <h2>嵌入后的文字</h2>
+                <textarea id="newText" readonly="readonly"></textarea>
+            </div>
+        </td>
 
-</tr></table>
+    </tr>
+</table>
 <div id="diffoutput"></div>
-
 
 
 说明：<br>
 <ol>
-  <ol>
-</ol>
-  <li>作者 <a href="https://github.com/guofei9987">郭飞</a></li>
-  <li>开源不易，请我喝咖啡</li>
-<img src="https://www.guofei.site/public/donate/WeChatQR.jpg" width=150 heght=150><br>
-  <li>欢迎去<a href="https://www.guofei.site/">我的博客</a>看一眼。</li>
+    <ol>
+    </ol>
+    <li>作者 <a href="https://github.com/guofei9987">郭飞</a>，开源不易，请我喝咖啡</li>
+    <img src="https://www.guofei.site/public/donate/WeChatQR.jpg" width=150 heght=150><br>
+    <li>欢迎去<a href="https://www.guofei.site/">我的博客</a>看一眼。</li>
 </ol>
 
 </body>
