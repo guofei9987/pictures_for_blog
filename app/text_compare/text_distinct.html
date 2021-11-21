@@ -24,8 +24,10 @@
 
         .textInput {
             display: block;
-            width: 49%;
-            float: left;
+        }
+
+        .textOutput {
+            display: block;
         }
 
         textarea {
@@ -38,9 +40,6 @@
             cursor: pointer;
         }
 
-        .spacer {
-            margin-left: 10px;
-        }
 
         .viewType {
             font-size: 16px;
@@ -95,10 +94,11 @@ document.getElementById("newText").value = txtNew;
                 sm = new difflib.SequenceMatcher(base, newtxt),
                 opcodes = sm.get_opcodes(),
                 diffoutputdiv = byId("diffoutput"),
-                contextSize = byId("contextSize").value;
+                // contextSize = byId("contextSize").value;
 
+                contextSize=null;
             diffoutputdiv.innerHTML = "";
-            contextSize = contextSize || null;
+            // contextSize = contextSize || null;
 
             diffoutputdiv.appendChild(diffview.buildView({
                 baseTextLines: base,
@@ -113,24 +113,38 @@ document.getElementById("newText").value = txtNew;
 
     </script>
 </head>
+
+
 <body>
 <h1 class="top">Text drop duplicate</h1>
-<div class="top">
-    <strong>Context size (optional):</strong> <input type="text" id="contextSize" value=""/>
-</div>
+
+
+
+
+<table width="100%">
+  <tr>
+    <td>
 <div class="textInput">
     <h2>Base Text</h2>
     <textarea id="baseText"></textarea>
 </div>
-<div class="textInput spacer">
-    <h2>New Text</h2>
+</td>
+
+<td width="3%" align="middle">
+<button type="button" onclick="main();">Distinct=&gt;</button>
+</td>
+
+<td>
+<div class="textOutput">
+    <h2>Distincted Text</h2>
     <textarea id="newText" readonly="readonly"></textarea>
 </div>
+</td>
 
-<button type="button" onclick="main();">Drop Duplicate</button>
-
-
+</tr></table>
 <div id="diffoutput"></div>
+
+
 
 说明：<br>
 <ol>
