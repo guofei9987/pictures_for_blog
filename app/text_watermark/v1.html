@@ -58,7 +58,10 @@
             var wm = document.getElementById("wm").value;
             var text = document.getElementById("baseText").value;
 
-            var text_embed = embed(text, wm);
+            var wm_bin = str2bin(wm);
+            wm_bin += " ";
+            console.log(wm_bin);
+            var text_embed = embed(text, wm_bin);
 
             document.getElementById("newText").innerHTML = text_embed;
 
@@ -92,8 +95,7 @@
             return result.join("");
         }
 
-        function embed(text, wm) {
-            var wm_bin = str2bin(wm);
+        function embed(text, wm_bin) {
             var len_bin_wm = wm_bin.length;
             var len_text = text.length;
             if (len_bin_wm > len_text) {
@@ -111,11 +113,48 @@
                     text_embed += String.fromCharCode(127);
                 }
             }
-
             return text_embed;
-
-
         }
+
+        function extract(text_embed) {
+            var bin_wm_extract = "";
+            var idx = 0;
+            var previous_is_char = false;
+            while (idx < text_embed.length) {
+                if (previous_is_char) {
+                    if (text_embed[idx] === String.fromCharCode(127)) {
+                        if (text_embed[idx + 1] === String.fromCharCode(127)) {
+                            bin_wm_extract += " ";
+                            previous_is_char = false;
+
+                            idx++;
+                        } else {
+                            bin_wm_extract += "1";
+                            previous_is_char = false;
+
+                        }
+                    } else {
+                        bin_wm_extract += "0";
+                        previous_is_char = true;
+
+                    }
+                } else {
+                    previous_is_char = true;
+                }
+
+                idx++;
+
+            }
+
+            return bin_wm_extract
+        }
+
+
+        function main2() {
+            text_embed = document.getElementById("text_embed2").value;
+            document.getElementById("wm_extract").innerHTML = bin2str(extract(text_embed));
+        }
+
 
     </script>
 </head>
@@ -149,6 +188,24 @@
         </td>
 
     </tr>
+
+    <tr>
+        <td>
+            <h2>嵌入后的文字</h2>
+            <textarea id="text_embed2"></textarea>
+        </td>
+
+        <td width="4%" align="middle">
+            <button type="button" onclick="main2();">extract=&gt;</button>
+        </td>
+
+        <td>
+            <h2>解出的密文</h2>
+            <textarea id="wm_extract" readonly="readonly"></textarea>
+        </td>
+
+    </tr>
+
 </table>
 <div id="diffoutput"></div>
 
