@@ -55,13 +55,67 @@
     <script type="text/javascript">
 
         function main() {
-            wm = document.getElementById("wm").value;
-            text = document.getElementById("baseText").value;
+            var wm = document.getElementById("wm").value;
+            var text = document.getElementById("baseText").value;
 
-            text_embed = wm + text;
+            var text_embed = embed(text, wm);
+
             document.getElementById("newText").innerHTML = text_embed;
+
+
         }
 
+
+        function str2bin(str) {
+            var result = [];
+            var list = str.split("");
+            for (var i = 0; i < list.length; i++) {
+                if (i != 0) {
+                    result.push(" ");
+                }
+                var item = list[i];
+                var binaryStr = item.charCodeAt().toString(2);
+                result.push(binaryStr);
+            }
+            return result.join("");
+        }
+
+        function bin2str(str) {
+            var result = [];
+            var list = str.split(" ");
+            for (var i = 0; i < list.length; i++) {
+                var item = list[i];
+                var asciiCode = parseInt(item, 2);
+                var charValue = String.fromCharCode(asciiCode);
+                result.push(charValue);
+            }
+            return result.join("");
+        }
+
+        function embed(text, wm) {
+            var wm_bin = str2bin(wm);
+            var len_bin_wm = wm_bin.length;
+            var len_text = text.length;
+            if (len_bin_wm > len_text) {
+                return "密文需要明文长度为" + len_bin_wm + "，不符合要求。";
+            }
+
+
+            var text_embed = "";
+            for (var idx = 0; idx < len_text; idx++) {
+                text_embed += text[idx];
+                if (wm_bin[idx] === "1") {
+                    text_embed += String.fromCharCode(127);
+                } else if (wm_bin[idx] === " ") {
+                    text_embed += String.fromCharCode(127);
+                    text_embed += String.fromCharCode(127);
+                }
+            }
+
+            return text_embed;
+
+
+        }
 
     </script>
 </head>
