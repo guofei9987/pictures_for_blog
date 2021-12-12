@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <title>文本比较工具</title>
+    <title>文本去重工具</title>
     <link rel="stylesheet" type="text/css" href="diffview.css"/>
     <script type="text/javascript" src="diffview.js"></script>
     <script type="text/javascript" src="difflib.js"></script>
@@ -56,6 +56,35 @@
 
     <script type="text/javascript">
 
+function main(){
+  dropDup();
+  diffUsingJS(1);
+}
+
+
+function dropDup(){
+
+var base = document.getElementById("baseText").value;
+var arrBase = base.split('\n');
+var arrNew = new Array();
+var setNew = new Set();
+for(idx in arrBase){
+  line = arrBase[idx];
+  if(!(setNew.has(line))){
+    arrNew.push(line);
+    setNew.add(line);
+  }
+}
+
+var txtNew = arrNew.join("\n");
+
+document.getElementById("newText").value = txtNew;
+
+}
+
+
+
+
         function diffUsingJS(viewType) {
             "use strict";
             var byId = function (id) {
@@ -85,7 +114,7 @@
     </script>
 </head>
 <body>
-<h1 class="top">Text Compare 文本比较工具</h1>
+<h1 class="top">Text drop duplicate</h1>
 <div class="top">
     <strong>Context size (optional):</strong> <input type="text" id="contextSize" value=""/>
 </div>
@@ -95,26 +124,26 @@
 </div>
 <div class="textInput spacer">
     <h2>New Text</h2>
-    <textarea id="newText"></textarea>
+    <textarea id="newText" readonly="readonly"></textarea>
 </div>
-<div class="viewType">  
-    <input type="radio" name="_viewtype" id="sidebyside" onclick="diffUsingJS(0);"/> <label for="sidebyside">Side by
-    Side Diff</label>
-    &nbsp; &nbsp;
-    <input type="radio" name="_viewtype" id="inline" onclick="diffUsingJS(1);"/> <label for="inline">Inline Diff</label>
-</div>
+
+<button type="button" onclick="main();">Drop Duplicate</button>
+
+
 <div id="diffoutput"></div>
 
 说明：<br>
-1. <a href="https://www.guofei.site/pictures_for_blog/app/text_compare/main.html">本工具</a>是一个文本比较小工具<br>
-2. 纯JavaScript工具，无后端。<br>
-3. 运行和计算是在你的浏览器中实现的，数据不会泄露。<br>
-4. 网页保存下来可以离线用。<br>
-5. 无缓存，不保存数据。刷新页面后，数据清空。<br>
-6. 开源不易，请我喝咖啡<br>
+<ol>
+  <ol>
+</ol>
+  <li><a href="https://www.guofei.site/pictures_for_blog/app/text_compare/main.html">本工具</a>是一个文本去重小工具</li>
+  <li>运行和计算是在你的浏览器中实现的，数据不会泄露。</li>
+  <li>网页保存下来可以离线用。</li>
+  <li>无缓存，刷新页面后数据清空。</li>
+  <li>开源不易，请我喝咖啡</li>
 <img src="https://www.guofei.site/public/donate/WeChatQR.jpg" width=150 heght=150><br>
-7. 欢迎去<a href="https://www.guofei.site/">我的博客</a>看一眼。
-
+  <li>欢迎去<a href="https://www.guofei.site/">我的博客</a>看一眼。</li>
+</ol>
 
 </body>
 </html>
