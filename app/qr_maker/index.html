@@ -12,6 +12,10 @@
 <input type="button" value="生成" onclick="generator_qr_code()">
 <div id="qr"></div>
 
+<!-- <textarea id="qr_text" rows="80" cols="80"
+style="word-spacing:0em;letter-spacing:0em;line-height:1em;line-width:1em">
+</textarea> -->
+
 <script>
     function generator_qr_code() {
       // 画一个 svg 图
@@ -20,8 +24,8 @@
 
     // 字符图
 
-    var hello = new QRCode("Hello World!");
-    var modules = hello.qrcode.modules;
+    // var hello = new QRCode("Hello World!");
+    var modules = qrcode.qrcode.modules;
 
     var ascii = '';
     var length = modules.length;
@@ -33,6 +37,7 @@
       ascii += '\r\n';
     }
     console.log(ascii);
+
     }
 
 </script>
