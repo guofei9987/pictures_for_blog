@@ -9,34 +9,48 @@
 <body>
 
 <input type="text" id="text" value="信息">
-<input type="button" value="生成" onclick="generator_qr_code()">
+<input type="button" value="生成二维码图片" onclick="generator_qr_code()">
+<input type="button" value="生成二维码字符图" onclick="generator_qr_text()">
 <div id="qr"></div>
 
 <!-- <textarea id="qr_text" rows="80" cols="80"
 style="word-spacing:0em;letter-spacing:0em;line-height:1em;line-width:1em">
 </textarea> -->
 
+<pre id="qr_text" style="line-height:1em;"></pre>
+
+
+
+
 <script>
     function generator_qr_code() {
       // 画一个 svg 图
         var qrcode = new QRCode({content: document.getElementById('text').value, join: true});
         document.getElementById("qr").innerHTML = qrcode.svg();
-
-    // 字符图
-
-    // var hello = new QRCode("Hello World!");
-    var modules = qrcode.qrcode.modules;
-
-    var ascii = '';
-    var length = modules.length;
-    for (var y = 0; y < length; y++) {
-      for (var x = 0; x < length; x++) {
-        var module = modules[x][y];
-        ascii += (module ? '██' : '  ');
       }
-      ascii += '\r\n';
-    }
-    console.log(ascii);
+
+
+    function generator_qr_text() {
+
+      // 字符图
+      var qrcode = new QRCode({content: document.getElementById('text').value, join: true});
+
+      // var hello = new QRCode("Hello World!");
+      var modules = qrcode.qrcode.modules;
+
+      var ascii = '';
+      var length = modules.length;
+      for (var y = 0; y < length; y++) {
+        for (var x = 0; x < length; x++) {
+          var module = modules[x][y];
+          ascii += (module ? '██' : '  ');
+        }
+        ascii += '\r\n';
+      }
+      console.log(ascii);
+
+      document.getElementById("qr_text").innerHTML = ascii+"\n 字符图暂只支持 Safari";
+
 
     }
 
