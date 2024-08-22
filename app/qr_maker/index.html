@@ -4,67 +4,115 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="qrcode.js"></script>
+    <style>
+        .show {
+            display: block;
+        }
 
+        .hide {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
 <input type="text" id="text" value="信息">
-<input type="button" value="生成二维码图片" onclick="generator_qr_code()">
-<input type="button" value="生成二维码字符图" onclick="generator_qr_text()">
-<div id="qr"></div>
-
-<!-- <textarea id="qr_text" rows="80" cols="80"
-style="word-spacing:0em;letter-spacing:0em;line-height:1em;line-width:1em">
-</textarea> -->
-
-<pre id="qr_text" style="line-height:1em;font-family:'Menlo'"></pre>
+<input type="button" value="生成二维码" onclick="generateQrCodes()">
 
 
+<h3 id="svg_title" class="hide">二维码 SVG</h3>
+<div id="qr_svg"></div>
+
+<h3 id="png_title" class="hide">二维码 PNG</h3>
+<img id="qr_png" alt="二维码 PNG" class="hide"/>
+
+<h3 id="text_title" class="hide">二维码字符图</h3>
+<pre id="qr_text" style="line-height:1em; font-family:'Menlo'" class="hide"></pre>
 
 
 <script>
-    function generator_qr_code() {
-      // 画一个 svg 图
-        var qrcode = new QRCode({content: document.getElementById('text').value, join: true});
-        document.getElementById("qr").innerHTML = qrcode.svg();
-      }
+
+    function generateQrCodes() {
 
 
-    function generator_qr_text() {
+        const content = document.getElementById('text').value;
+        const qrcode = new QRCode({content: content, join: true});
 
-      // 字符图
-      var qrcode = new QRCode({content: document.getElementById('text').value, join: true});
+        // 生成 SVG
+        generateQrSVG(qrcode);
 
-      // var hello = new QRCode("Hello World!");
-      var modules = qrcode.qrcode.modules;
+        // 生成字符图
+        generateQrText(qrcode);
 
-      var ascii = '';
-      var length = modules.length;
-      for (var y = 0; y < length; y++) {
-        for (var x = 0; x < length; x++) {
-          var module = modules[x][y];
-          ascii += (module ? '██' : '  ');
+        // 生成 PNG
+        generateQrPng(qrcode);
+
+        // 显示隐藏的东西
+        showQrElements();
+
+
+    }
+
+
+    function generateQrSVG(qrcode) {
+        document.getElementById("qr_svg").innerHTML = qrcode.svg();
+    }
+
+    function generateQrText(qrcode) {
+        var modules = qrcode.qrcode.modules;
+        var ascii = '';
+        var length = modules.length;
+        for (var y = 0; y < length; y++) {
+            for (var x = 0; x < length; x++) {
+                var module = modules[x][y];
+                ascii += (module ? '██' : '  ');
+            }
+            ascii += '\r\n';
         }
-        ascii += '\r\n';
-      }
-      console.log(ascii);
-
-      document.getElementById("qr_text").innerHTML = ascii+"\n 作者：http://www.github.com/guofei9987/";
+        console.log(ascii);
+        document.getElementById("qr_text").innerHTML = ascii;
+    }
 
 
+    function generateQrPng(qrcode) {
+        const svgData = qrcode.svg();
+        const width = 256; // 设定宽度
+        const height = 256; // 设定高度
+
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = width;
+        canvas.height = height;
+
+        const img = new Image();
+        img.onload = () => {
+            context.drawImage(img, 0, 0);
+            const pngData = canvas.toDataURL('image/png'); // 转换为 PNG 数据 URL
+            document.getElementById("qr_png").src = pngData; // 设置为 img src
+        };
+        img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+    }
+
+    function showQrElements() {
+        const ids = ["svg_title", "qr_svg", "png_title", "qr_png", "text_title", "qr_text"];
+        ids.forEach(id => {
+            const element = document.getElementById(id);
+            element.classList.remove("hide");
+            element.classList.add("show");
+        });
     }
 
 </script>
 
 
 <ol>
-  <li><a href="https://www.guofei.site/pictures_for_blog/app/qr_maker/index.html">本工具</a>是一个二维码生成工具</li>
-  <li>网页保存下来可以离线用。</li>
-  <li>开源不易，请我喝咖啡</li>
-<img src="https://www.guofei.site/public/donate/WeChatQR.jpg" width=150 heght=150><br>
-  <li>欢迎去<a href="https://www.guofei.site/">我的博客</a>看一眼。</li>
+    <li><a href="https://www.guofei.site/pictures_for_blog/app/qr_maker/index.html">本工具</a>是一个二维码生成工具</li>
+    <li>作者主页：<a href="https://github.com/guofei9987">https://github.com/guofei9987</a></li>
+    <li>网页保存下来可以离线用。</li>
+    <li>开源不易，请我喝咖啡</li>
+    <img src="https://www.guofei.site/public/donate/WeChatQR.jpg" width=150 height=150><br>
+    <li>欢迎阅读 <a href="https://www.guofei.site/">我的博客</a></li>
 </ol>
-
 
 
 </body>
