@@ -17,6 +17,13 @@
 <body>
 
 <input type="text" id="text" value="信息">
+
+<br>
+<label for="width">png 宽度:</label>
+<input type="number" id="width" value="256" min="1">
+<label for="height">高度:</label>
+<input type="number" id="height" value="256" min="1"><br>
+
 <input type="button" value="生成二维码" onclick="generateQrCodes()">
 
 
@@ -36,6 +43,8 @@
 
 
         const content = document.getElementById('text').value;
+        const width = parseInt(document.getElementById('width').value);
+        const height = parseInt(document.getElementById('height').value);
         const qrcode = new QRCode({content: content, join: true});
 
         // 生成 SVG
@@ -45,7 +54,7 @@
         generateQrText(qrcode);
 
         // 生成 PNG
-        generateQrPng(qrcode);
+        generateQrPng(qrcode, width, height);
 
         // 显示隐藏的东西
         showQrElements();
@@ -74,11 +83,8 @@
     }
 
 
-    function generateQrPng(qrcode) {
+    function generateQrPng(qrcode, width, height) {
         const svgData = qrcode.svg();
-        const width = 256; // 设定宽度
-        const height = 256; // 设定高度
-
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
         canvas.width = width;
@@ -86,7 +92,7 @@
 
         const img = new Image();
         img.onload = () => {
-            context.drawImage(img, 0, 0);
+            context.drawImage(img, 0, 0, width, height);
             const pngData = canvas.toDataURL('image/png'); // 转换为 PNG 数据 URL
             document.getElementById("qr_png").src = pngData; // 设置为 img src
         };
