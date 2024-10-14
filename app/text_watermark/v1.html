@@ -104,10 +104,10 @@
             for (var idx = 0; idx < len_text; idx++) {
                 text_embed += text[idx];
                 if (wm_bin[idx] === "1") {
-                    text_embed += String.fromCharCode(127);
+                    text_embed += String.fromCharCode(0x200C);
                 } else if (wm_bin[idx] === " ") {
-                    text_embed += String.fromCharCode(127);
-                    text_embed += String.fromCharCode(127);
+                    text_embed += String.fromCharCode(0x200C);
+                    text_embed += String.fromCharCode(0x200C);
                 }
             }
             return text_embed;
@@ -119,8 +119,8 @@
             var previous_is_char = false;
             while (idx < text_embed.length) {
                 if (previous_is_char) {
-                    if (text_embed[idx] === String.fromCharCode(127)) {
-                        if (text_embed[idx + 1] === String.fromCharCode(127)) {
+                    if (text_embed[idx] === String.fromCharCode(0x200C)) {
+                        if (text_embed[idx + 1] === String.fromCharCode(0x200C)) {
                             bin_wm_extract += " ";
                             previous_is_char = false;
 
