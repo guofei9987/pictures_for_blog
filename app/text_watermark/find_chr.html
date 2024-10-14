@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>示例页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p>这里插入一段含零宽字符1d
+这里插入一段含零宽字符7F
+这里插入​一段含零宽字符200B
+这里插入‌一段含零宽字符200C
+这里插入‍一段含零宽字符200D
+这里插入﻿一段含零宽字符FEFF
+这里插入⁠一段含零宽字符0x2060
+这里插入­一段含零宽字符0x00AD
+这里插入一段含零宽字符0x202A
+</p >
+
+    <label for="message" class="label">这里插入一段含零宽字符1d
+这里插入一段含零宽字符7F
+这里插入​一段含零宽字符200B
+这里插入‌一段含零宽字符200C
+这里插入‍一段含零宽字符200D
+这里插入﻿一段含零宽字符FEFF
+这里插入⁠一段含零宽字符0x2060
+这里插入­一段含零宽字符0x00AD
+这里插入一段含零宽字符0x202A
+</label>
+
+    <textarea id="message" name="message" class="textarea" placeholder="在这里输入您的文本...">
+这里插入一段含零宽字符1d
+这里插入一段含零宽字符7F
+这里插入​一段含零宽字符200B
+这里插入‌一段含零宽字符200C
+这里插入‍一段含零宽字符200D
+这里插入﻿一段含零宽字符FEFF
+这里插入⁠一段含零宽字符0x2060
+这里插入­一段含零宽字符0x00AD
+这里插入一段含零宽字符0x202A
+</textarea>
+</div>
+</body>
+</html>
